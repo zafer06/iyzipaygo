@@ -9,7 +9,8 @@ import (
 	"time"
 )
 
-const Version = "0.3.1"
+// Version number
+const Version = "0.3.2"
 
 type Options struct {
 	ApiKey    string
@@ -30,17 +31,22 @@ func connect(method string, url string, options Options, request string, pkiStri
 	req.Header.Add("x-iyzi-rnd", randomString)
 	req.Header.Add("cache-control", "no-cache")
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
 	defer res.Body.Close()
+	if err != nil {
+		panic(err)
+	}
 
 	body, _ := ioutil.ReadAll(res.Body)
+
 	/*
-	   fmt.Println("-------------------------------------------------------------")
-	   fmt.Println("PKI STRING -> ", pkiString)
-	   fmt.Println("-------------------------------------------------------------")
-	   fmt.Println("AUTHORIZATION STRING -> ", authString)
-	   fmt.Println("-------------------------------------------------------------")
+		fmt.Println("-------------------------------------------------------------")
+		fmt.Println("PKI STRING -> ", pkiString)
+		fmt.Println("-------------------------------------------------------------")
+		fmt.Println("AUTHORIZATION STRING -> ", authString)
+		fmt.Println("-------------------------------------------------------------")
 	*/
+
 	return string(body)
 }
 

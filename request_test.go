@@ -1,45 +1,52 @@
-package main
+package iyzipaygo
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
-
-	"github.com/zafer06/iyzipay-go/iyzipay"
+	"testing"
 )
 
-func main() {
-	var options iyzipay.Options
-	options.ApiKey = os.Getenv("API_KEY")
-	options.SecretKey = os.Getenv("SECRET_KEY")
-	options.BaseUrl = "https://sandbox-api.iyzipay.com"
+func init() {
+	options = Options{
+		os.Getenv("API_KEY"),
+		os.Getenv("SECRET_KEY"),
+		"https://sandbox-api.iyzipay.com",
+	}
 
-	apiTest(options)
-	//binNumber(options);
-	//installmentInfo(options)
-	//createPayment(options)
-	//retrievePayment(options)
-	//createThreedsInitialize(options)
-	//createThreedsPayment(options)
-	//createRefund(options)
-	//createCancel(options)
+	fmt.Println("*** Iyzico Go Clint " + Version)
 }
 
-func apiTest(options iyzipay.Options) {
-	result := iyzipay.ApiTest(options)
-	fmt.Println("ApiTest: ", result)
+func TestAPI(t *testing.T) {
+	result := ApiTest(options)
+
+	var res map[string]interface{}
+	json.Unmarshal([]byte(result), &res)
+
+	if res["status"].(string) != "success" {
+		t.Errorf("Status was incorrect, got %s, want success.", res["status"])
+	}
 }
 
-func binNumber(options iyzipay.Options) {
+func TestBinNumber(t *testing.T) {
 	request := `{
-        "locale": "tr",
-        "conversationId": "123456789",
-        "binNumber": "542119"
-    }`
-	result := iyzipay.BinNumber(request, options)
-	fmt.Println("BinNumber: ", result)
+		        "locale": "tr",
+		        "conversationId": "123456789",
+		        "binNumber": "542119"
+		    }`
+	result := BinNumber(request, options)
+	//fmt.Println("BinNumber: ", result)
+
+	var res map[string]interface{}
+	json.Unmarshal([]byte(result), &res)
+
+	if res["status"].(string) != "success" {
+		t.Errorf("Status was incorret, got %s, want success, error: %s", res["status"], res["errorMessage"])
+	}
+
 }
 
-func installmentInfo(options iyzipay.Options) {
+func TestInstallmentInfo(t *testing.T) {
 	request := `{
         "locale": "tr",
         "conversationId": "123456789",
@@ -47,11 +54,17 @@ func installmentInfo(options iyzipay.Options) {
 		"price": "100.0"
     }`
 
-	result := iyzipay.InstallmentInfo(request, options)
-	fmt.Println("InstallmentInfo: ", result)
+	result := InstallmentInfo(request, options)
+
+	var res map[string]interface{}
+	json.Unmarshal([]byte(result), &res)
+
+	if res["status"].(string) != "success" {
+		t.Errorf("Status was incorret, got %s, want success, error: %s", res["status"], res["errorMessage"])
+	}
 }
 
-func createPayment(options iyzipay.Options) {
+func TestCreatePayment(t *testing.T) {
 	request := `{
 		"locale": "tr",
 		"conversationId": "123456789",
@@ -125,13 +138,20 @@ func createPayment(options iyzipay.Options) {
     		}
     	],
         "currency": "TRY"
-    }`
+}`
 
-	result := iyzipay.CreatePayment(request, options)
-	fmt.Println("CreatePayment: ", result)
+	result := CreatePayment(request, options)
+
+	var res map[string]interface{}
+	json.Unmarshal([]byte(result), &res)
+
+	if res["status"].(string) != "success" {
+		t.Errorf("Status was incorret, got %s, want success, error: %s", res["status"], res["errorMessage"])
+	}
 }
 
-func retrievePayment(options iyzipay.Options) {
+/*
+func TestRetrievePayment(t *testing.T) {
 	request := `{
         "locale": "tr",
         "conversationId": "123456789",
@@ -139,8 +159,14 @@ func retrievePayment(options iyzipay.Options) {
         "paymentConversationId": "123456789"
     }`
 
-	result := iyzipay.RetrievePayment(request, options)
-	fmt.Println("RetrievePayment: ", result)
+	result := RetrievePayment(request, options)
+
+	var res map[string]interface{}
+	json.Unmarshal([]byte(result), &res)
+
+	if res["status"].(string) != "success" {
+		t.Errorf("Status was incorret, got %s, want success, error: %s", res["status"], res["errorMessage"])
+	}
 }
 
 func createThreedsInitialize(options iyzipay.Options) {
@@ -261,3 +287,4 @@ func createCancel(options iyzipay.Options) {
 	result := iyzipay.CreateCancel(request, options)
 	fmt.Println("Cancel: ", result)
 }
+*/

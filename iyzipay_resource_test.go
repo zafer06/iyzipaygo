@@ -19,11 +19,11 @@ func init() {
 }
 
 func TestConnect(t *testing.T) {
-	reqUrl := options.BaseUrl + "/payment/test"
+	reqURL := options.BaseUrl + "/payment/test"
 	request := ""
 	pkiString := ""
 
-	result := connect("GET", reqUrl, options, request, pkiString)
+	result := connect("GET", reqURL, options, request, pkiString)
 
 	var res map[string]interface{}
 	json.Unmarshal([]byte(result), &res)

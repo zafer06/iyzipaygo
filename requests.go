@@ -6,10 +6,10 @@ import (
 )
 
 func ApiTest(options Options) string {
-	reqUrl := options.BaseUrl + "/payment/test"
+	reqURL := options.BaseUrl + "/payment/test"
 	pkiString := ""
 
-	return connect("GET", reqUrl, options, "", pkiString)
+	return connect("GET", reqURL, options, "", pkiString)
 }
 
 func BinNumber(request string, options Options) string {
@@ -21,10 +21,10 @@ func BinNumber(request string, options Options) string {
 	pki.append("conversationId", req["conversationId"].(string))
 	pki.append("binNumber", req["binNumber"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/bin/check"
+	reqURL := options.BaseUrl + "/payment/bin/check"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func InstallmentInfo(request string, options Options) string {
@@ -37,10 +37,10 @@ func InstallmentInfo(request string, options Options) string {
 	pki.append("binNumber", req["binNumber"].(string))
 	pki.append("price", req["price"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/iyzipos/installment"
+	reqURL := options.BaseUrl + "/payment/iyzipos/installment"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func CreatePayment(request string, options Options) string {
@@ -63,10 +63,10 @@ func CreatePayment(request string, options Options) string {
 	pki.append("basketItems", pkiBasketItems(req["basketItems"].([]interface{})))
 	pki.append("currency", req["currency"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/auth"
+	reqURL := options.BaseUrl + "/payment/auth"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func RetrievePayment(request string, options Options) string {
@@ -79,10 +79,10 @@ func RetrievePayment(request string, options Options) string {
 	pki.append("paymentId", req["paymentId"].(string))
 	pki.append("paymentConversationId", req["paymentConversationId"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/detail"
+	reqURL := options.BaseUrl + "/payment/detail"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func ThreedsInitialize(request string, options Options) string {
@@ -106,10 +106,10 @@ func ThreedsInitialize(request string, options Options) string {
 	pki.append("currency", req["currency"].(string))
 	pki.append("callbackUrl", req["callbackUrl"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/3dsecure/initialize"
+	reqURL := options.BaseUrl + "/payment/3dsecure/initialize"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func CreateThreedsPayment(request string, options Options) string {
@@ -122,10 +122,10 @@ func CreateThreedsPayment(request string, options Options) string {
 	pki.append("paymentId", req["paymentId"].(string))
 	pki.append("conversationData", req["conversationData"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/3dsecure/auth"
+	reqURL := options.BaseUrl + "/payment/3dsecure/auth"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func CreateRefund(request string, options Options) string {
@@ -140,10 +140,10 @@ func CreateRefund(request string, options Options) string {
 	pki.append("ip", req["ip"].(string))
 	pki.append("currency", req["currency"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/refund"
+	reqURL := options.BaseUrl + "/payment/refund"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func CreateCancel(request string, options Options) string {
@@ -156,10 +156,10 @@ func CreateCancel(request string, options Options) string {
 	pki.append("paymentId", req["paymentId"].(string))
 	pki.append("ip", req["ip"].(string))
 
-	reqUrl := options.BaseUrl + "/payment/cancel"
+	reqURL := options.BaseUrl + "/payment/cancel"
 	pkiString := pki.getPkiString()
 
-	return connect("POST", reqUrl, options, request, pkiString)
+	return connect("POST", reqURL, options, request, pkiString)
 }
 
 func pkiBasketItems(jsonArray []interface{}) string {
