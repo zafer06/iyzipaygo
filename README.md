@@ -1,4 +1,6 @@
-# iyzipay-go
-Unofficial iyzipay api d client. You can sign up for an iyzico account at https://iyzico.com
+# iyzipaygo
+İyzico ödeme sistemi için Go kütüphanesi (https://iyzico.com)
 
-[![Posix Build Status](https://travis-ci.org/zafer06/iyzipay-go.svg?branch=master)](https://travis-ci.org/zafer06/iyzipay-go)
+## Kurulum (Installation)
+
+    $ go get -u github.com/zafer06/iyzipaygo
